@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Остров Родлонтар — карта для Minecraft</title>
+<style>
+  :root{
+    --bg:#0b0f14;
+    --bg2:#111823;
+    --accent:#5ee0a0;
+    --accent2:#3aa0ff;
+    --danger:#ff5c5c;
+    --text:#e8eef5;
+    --muted:#93a3b5;
+    --card:#141d29;
+    --line:#22303f;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{
+    font-family:"Segoe UI",Roboto,system-ui,sans-serif;
+    background:var(--bg);
+    color:var(--text);
+    line-height:1.6;
+    overflow-x:hidden;
+  }
+  a{color:var(--accent);text-decoration:none}
+
+  /* ---------- HERO ---------- */
+  .hero{
+    position:relative;
+    min-height:100vh;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+    text-align:center;
+    padding:40px 20px;
+    background:
+      radial-gradient(circle at 20% 20%, rgba(58,160,255,.12), transparent 45%),
+      radial-gradient(circle at 80% 70%, rgba(94,224,160,.10), transparent 45%),
+      linear-gradient(180deg,#070a0e 0%, #0b1119 60%, #0b0f14 100%);
+    overflow:hidden;
+  }
+  /* «звёзды» */
+  .hero::before{
+    content:"";
+    position:absolute;
+    inset:0;
+    background-image:
+      radial-gradient(1px 1px at 10% 20%, #fff, transparent),
+      radial-gradient(1px 1px at 30% 80%, #cfe, transparent),
+      radial-gradient(1px 1px at 55% 35%, #fff, transparent),
+      radial-gradient(1px 1px at 75% 15%, #9fd, transparent),
+      radial-gradient(1px 1px at 90% 60%, #fff, transparent),
+      radial-gradient(1px 1px at 45% 90%, #cfe, transparent),
+      radial-gradient(1px 1px at 65% 55%, #fff, transparent),
+      radial-gradient(1px 1px at 15% 65%, #9fd, transparent);
+    opacity:.55;
+    animation:twinkle 6s ease-in-out infinite alternate;
+  }
+  @keyframes twinkle{from{opacity:.35}to{opacity:.8}}
+
+  .hero h1{
+    position:relative;
+    font-size:clamp(2.2rem,6vw,4.5rem);
+    letter-spacing:.04em;
+    text-transform:uppercase;
+    background:linear-gradient(90deg,var(--accent),var(--accent2));
+    -webkit-background-clip:text;
+    background-clip:text;
+    color:transparent;
+    filter:drop-shadow(0 0 24px rgba(94,224,160,.25));
+    animation:fadeUp 1s ease both;
+  }
+  .hero .sub{
+    position:relative;
+    margin-top:14px;
+    font-size:clamp(1rem,2vw,1.3rem);
+    color:var(--muted);
+    max-width:640px;
+    animation:fadeUp 1s .15s ease both;
+  }
+  .hero .tagline{
+    position:relative;
+    margin-top:26px;
+    display:inline-block;
+    padding:10px 22px;
+    border:1px solid var(--line);
+    border-radius:999px;
+    font-size:.9rem;
+    color:var(--accent);
+    background:rgba(20,29,41,.6);
+    backdrop-filter:blur(6px);
+    animation:fadeUp 1s .3s ease both;
+  }
+  .hero-cta{
+    position:relative;
+    margin-top:34px;
+    display:flex;
+    gap:16px;
+    flex-wrap:wrap;
+    justify-content:center;
+    animation:fadeUp 1s .45s ease both;
+  }
+  .btn{
+    padding:14px 30px;
+    border-radius:10px;
+    font-weight:600;
+    font-size:1rem;
+    transition:.25s;
+    border:1px solid transparent;
+    cursor:pointer;
+  }
+  .btn-primary{
+    background:linear-gradient(135deg,var(--accent),#2fb37a);
+    color:#04110a;
+    box-shadow:0 8px 30px rgba(94,224,160,.25);
+  }
+  .btn-primary:hover{transform:translateY(-2px);box-shadow:0 12px 36px rgba(94,224,160,.4)}
+  .btn-ghost{
+    border-color:var(--line);
+    color:var(--text);
+    background:rgba(20,29,41,.5);
+  }
+  .btn-ghost:hover{border-color:var(--accent);color:var(--accent)}
+
+  .scroll-hint{
+    position:absolute;
+    bottom:26px;
+    left:50%;
+    transform:translateX(-50%);
+    color:var(--muted);
+    font-size:.8rem;
+    letter-spacing:.2em;
+    text-transform:uppercase;
+    animation:bob 2s ease-in-out infinite;
+  }
+  @keyframes bob{0%,100%{transform:translate(-50%,0)}50%{transform:translate(-50%,8px)}}
+  @keyframes fadeUp{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:translateY(0)}}
+
+  /* ---------- SECTIONS ---------- */
+  section{padding:90px 20px;max-width:1100px;margin:0 auto}
+  .section-title{
+    font-size:clamp(1.6rem,3.5vw,2.4rem);
+    margin-bottom:14px;
+    text-align:center;
+    letter-spacing:.03em;
+  }
+  .section-sub{
+    text-align:center;
+    color:var(--muted);
+    max-width:640px;
+    margin:0 auto 50px;
+  }
+  .divider{
+    width:70px;height:3px;margin:18px auto 0;
+    background:linear-gradient(90deg,var(--accent),var(--accent2));
+    border-radius:3px;
+  }
+
+  /* ---------- FEATURES ---------- */
+  .grid{display:grid;gap:22px;grid-template-columns:repeat(auto-fit,minmax(250px,1fr))}
+  .card{
+    background:var(--card);
+    border:1px solid var(--line);
+    border-radius:16px;
+    padding:28px 24px;
+    transition:.3s;
+    position:relative;
+    overflow:hidden;
+  }
+  .card::before{
+    content:"";
+    position:absolute;inset:0;
+    background:linear-gradient(135deg,rgba(94,224,160,.06),transparent 60%);
+    opacity:0;transition:.3s;
+  }
+  .card:hover{transform:translateY(-4px);border-color:rgba(94,224,160,.4);box-shadow:0 16px 40px rgba(0,0,0,.4)}
+  .card:hover::before{opacity:1}
+  .card .icon{font-size:2rem;margin-bottom:14px;display:block}
+  .card h3{font-size:1.1rem;margin-bottom:8px;color:var(--accent)}
+  .card p{color:var(--muted);font-size:.95rem}
+
+  /* ---------- LORE TEASER ---------- */
+  .lore{
+    background:
+      radial-gradient(circle at 15% 30%, rgba(58,160,255,.08), transparent 50%),
+      radial-gradient(circle at 85% 70%, rgba(94,224,160,.07), transparent 50%),
+      var(--bg2);
+    border-top:1px solid var(--line);
+    border-bottom:1px solid var(--line);
+    max-width:none;
+    padding:90px 20px;
+  }
+  .lore-inner{max-width:900px;margin:0 auto}
+  .lore p{color:var(--muted);margin-bottom:18px;font-size:1.02rem}
+  .lore p strong{color:var(--text)}
+  .quote{
+    border-left:3px solid var(--accent);
+    padding:16px 22px;
+    margin:30px 0;
+    background:rgba(20,29,41,.6);
+    border-radius:0 12px 12px 0;
+    font-style:italic;
+    color:var(--text);
+    font-size:1.05rem;
+  }
+  .quote span{display:block;margin-top:8px;font-style:normal;color:var(--muted);font-size:.85rem}
+
+  /* ---------- ENDINGS ---------- */
+  .endings{display:grid;gap:22px;grid-template-columns:repeat(auto-fit,minmax(220px,1fr))}
+  .ending{
+    background:var(--card);
+    border:1px solid var(--line);
+    border-radius:16px;
+    padding:30px 24px;
+    text-align:center;
+    transition:.3s;
+  }
+  .ending:hover{transform:translateY(-4px);border-color:rgba(58,160,255,.4)}
+  .ending .num{
+    font-size:2.4rem;font-weight:800;
+    background:linear-gradient(135deg,var(--accent),var(--accent2));
+    -webkit-background-clip:text;background-clip:text;color:transparent;
+  }
+  .ending h3{margin:10px 0 8px;font-size:1.05rem}
+  .ending p{color:var(--muted);font-size:.9rem}
+
+  /* ---------- SPECS ---------- */
+  .specs{display:grid;gap:16px;grid-template-columns:repeat(auto-fit,minmax(200px,1fr))}
+  .spec{
+    display:flex;align-items:center;gap:14px;
+    background:var(--card);border:1px solid var(--line);
+    border-radius:12px;padding:18px 20px;
+  }
+  .spec .dot{width:10px;height:10px;border-radius:50%;background:var(--accent);flex-shrink:0;box-shadow:0 0 12px var(--accent)}
+  .spec span{font-size:.95rem;color:var(--muted)}
+  .spec span b{color:var(--text)}
+
+  /* ---------- CTA ---------- */
+  .cta{
+    text-align:center;
+    background:
+      radial-gradient(circle at 50% 0%, rgba(94,224,160,.12), transparent 60%),
+      var(--bg2);
+    border-top:1px solid var(--line);
+    max-width:none;
+    padding:100px 20px;
+  }
+  .cta h2{font-size:clamp(1.8rem,4vw,2.8rem);margin-bottom:16px}
+  .cta p{color:var(--muted);max-width:600px;margin:0 auto 34px}
+
+  footer{
+    text-align:center;
+    padding:36px 20px;
+    color:var(--muted);
+    font-size:.85rem;
+    border-top:1px solid var(--line);
+  }
+
+  /* ---------- REVEAL ---------- */
+  .reveal{opacity:0;transform:translateY(30px);transition:.7s ease}
+  .reveal.visible{opacity:1;transform:none}
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<header class="hero">
+  <h1>Остров Родлонтар</h1>
+  <p class="sub">Карта-загадка для Minecraft. Выживание, тайны и история, которую вы соберёте сами.</p>
+  <div class="tagline">✈️ Ваш самолёт разбился. Вы — единственный выживший.</div>
+  <div class="hero-cta">
+    <a href="#features" class="btn btn-primary">Узнать о карте</a>
+    <a href="#lore" class="btn btn-ghost">Погрузиться в историю</a>
+  </div>
+  <div class="scroll-hint">↓ листайте ↓</div>
+</header>
+
+<!-- FEATURES -->
+<section id="features">
+  <h2 class="section-title reveal">Что вас ждёт</h2>
+  <p class="section-sub reveal">Продуманный остров, подземелья, головоломки и нелинейный сюжет — всё в одной карте.</p>
+  <div class="grid">
+    <div class="card reveal">
+      <span class="icon">🏝️</span>
+      <h3>Живой остров</h3>
+      <p>Пальмы, разрушенный дом, заброшенная ферма и три подземных строения. Каждый уголок что-то скрывает.</p>
+    </div>
+    <div class="card reveal">
+      <span class="icon">🧩</span>
+      <h3>Головоломки</h3>
+      <p>Рычаги, шифры, красный песчаник и тайные проходы. Награда — не предмет, а часть истории.</p>
+    </div>
+    <div class="card reveal">
+      <span class="icon">📜</span>
+      <h3>Записки и лор</h3>
+      <p>Бочки, дневники и послания раскрывают трагедию, случившуюся за годы до вашего крушения.</p>
+    </div>
+    <div class="card reveal">
+      <span class="icon">🌑</span>
+      <h3>Смертельный остров</h3>
+      <p>Каменные пики, вечная тьма и место, куда лучше не соваться без подготовки. Но именно там — ответы.</p>
+    </div>
+    <div class="card reveal">
+      <span class="icon">🔮</span>
+      <h3>Стражи</h3>
+      <p>Древняя раса, изучавшая людей. Их цитадели, язык и технологии ждут исследователя.</p>
+    </div>
+    <div class="card reveal">
+      <span class="icon">🎭</span>
+      <h3>4 концовки</h3>
+      <p>Ваши решения и находки определят финал. Один остров — несколько совершенно разных исходов.</p>
+    </div>
+  </div>
+</section>
+
+<!-- LORE TEASER -->
+<section class="lore" id="lore">
+  <div class="lore-inner">
+    <h2 class="section-title reveal">История без спойлеров</h2>
+    <div class="divider reveal"></div>
+    <div style="height:40px"></div>
+    <p class="reveal"><strong>Сначала был остров.</strong> Потом — цитадель. Раса, которая называла себя стражами, изучала людей и их тела, мечтая о большем. Их эксперименты оставили следы по всему архипелагу — но понять их сможет только внимательный исследователь.</p>
+    <p class="reveal">За два года до вашего крушения здесь уже потерпели бедствие четверо. Они подружились не по выбору, а по необходимости. Один из них так и не выбрался из шахты. Что случилось дальше — вы узнаете из записок, разбросанных по острову.</p>
+    <div class="quote reveal">
+      «Белый аист упал с неба. Мы не знали, что это. Теперь знаем — и это меняет всё.»
+      <span>— из записей, найденных на острове</span>
+    </div>
+    <p class="reveal"><strong>Ваш самолёт — не случайность.</strong> Крушение было организовано. Но кем, зачем и что вам с этим делать — решать только вам. Остров хранит ответы, но не отдаёт их просто так.</p>
+    <p class="reveal" style="color:var(--muted);font-size:.92rem">Больше деталей — в игре. Мы намеренно не рассказываем всё: главное удовольствие — собрать историю самому.</p>
+  </div>
+</section>
+
+<!-- ENDINGS -->
+<section id="endings">
+  <h2 class="section-title reveal">Четыре пути</h2>
+  <p class="section-sub reveal">Финал зависит от того, насколько глубоко вы готовы копать. Буквально.</p>
+  <div class="endings">
+    <div class="ending reveal">
+      <div class="num">01</div>
+      <h3>Путь записок</h3>
+      <p>Следуйте подсказкам из дневников. Но помните: не все инструкции ведут туда, куда обещают.</p>
+    </div>
+    <div class="ending reveal">
+      <div class="num">02</div>
+      <h3>Скрытая тропа</h3>
+      <p>Не каждый проход открыт снаружи. Иногда ключ — не предмет, а знание.</p>
+    </div>
+    <div class="ending reveal">
+      <div class="num">03</div>
+      <h3>Тишина</h3>
+      <p>Некоторые двери лучше не открывать. Но любопытство — двигатель исследователя.</p>
+    </div>
+    <div class="ending reveal">
+      <div class="num">04</div>
+      <h3>Портал</h3>
+      <p>Учёный оставил последний выход. Найти его — значит получить шанс начать всё заново.</p>
+    </div>
+  </div>
+</section>
+
+<!-- SPECS -->
+<section id="specs">
+  <h2 class="section-title reveal">Технические детали</h2>
+  <p class="section-sub reveal">Карта работает «из коробки» — без модов, датапаков и текстурпаков.</p>
+  <div class="specs">
+    <div class="spec reveal"><div class="dot"></div><span><b>Без модов</b> — только ванильный Minecraft</span></div>
+    <div class="spec reveal"><div class="dot"></div><span><b>Без датапаков</b> — всё встроено в мир</span></div>
+    <div class="spec reveal"><div class="dot"></div><span><b>Без текстурпаков</b> — оригинальные текстуры</span></div>
+    <div class="spec reveal"><div class="dot"></div><span><b>Нелинейный сюжет</b> — 4 концовки</span></div>
+    <div class="spec reveal"><div class="dot"></div><span><b>Загадки и шифры</b> — язык стражей</span></div>
+    <div class="spec reveal"><div class="dot"></div><span><b>Атмосфера</b> — день/ночь, дождь, тьма</span></div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta">
+  <h2 class="reveal">Готовы узнать, почему упал «Белый аист»?</h2>
+  <p class="reveal">Скачайте карту, выживите на острове и соберите историю, которую стражи хотели скрыть.</p>
+  <div class="hero-cta reveal" style="animation:none">
+    <a href="#" class="btn btn-primary">Скачать карту</a>
+    <a href="#lore" class="btn btn-ghost">Перечитать лор</a>
+  </div>
+</section>
+
+<footer>
+  Карта создана в Minecraft. Все совпадения с реальными стражами случайны. © Остров Родлонтар
+</footer>
+
+<script>
+  // Плавное появление блоков при скролле
+  const io = new IntersectionObserver((entries)=>{
+    entries.forEach(e=>{
+      if(e.isIntersecting){ e.target.classList.add('visible'); io.unobserve(e.target); }
+    });
+  },{threshold:.12});
+  document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+</script>
+</body>
+</html>
